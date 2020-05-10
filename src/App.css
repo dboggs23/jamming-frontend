@@ -1,1 +1,6 @@
+@import "../node_modules/picnic/picnic.min.css";
 
+.login{
+    margin-left: 25%;
+    margin-top: 15%;
+}
