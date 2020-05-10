@@ -10,14 +10,14 @@ class TopSongs extends React.Component {
 
 
 chooseSong(){
-    this.props.filterSongs(this.props.song.title)
+    this.props.filterSongs(this.props.song.name)
 }
 
   render() {
     return (
       <div className="Track">
         <div className="Track-information">
-          <h3 onClick={this.chooseSong}>{this.props.song.title}</h3>
+          <h3 onClick={this.chooseSong}>{this.props.song.name}</h3>
         </div>
       </div>
     );

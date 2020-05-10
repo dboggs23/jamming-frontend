@@ -21,14 +21,13 @@ class Results extends React.Component {
         {this.props.tracks.map(track => {
           return (
             <Songs
-              key={track.id}
-              track={track}
+              track={this.props.tracks}
               
             />
           );
         })}
         <div>
-          
+          <Playlist playlist={this.props.playlist}/>
         </div>
       </div>
       
