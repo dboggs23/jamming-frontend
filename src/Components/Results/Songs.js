@@ -1,5 +1,6 @@
 import React from "react";
 import "../../App.css";
+import "./Songs.css";
 
 class Songs extends React.Component {
   constructor(props) {
@@ -36,8 +37,8 @@ class Songs extends React.Component {
     return (
       <div className="Track">
         <div className="Track-information">
-          <h3>{this.props.track.name}</h3>
-          <p>{this.props.track.artist}</p>
+          <div className="h5">{this.props.track.name}</div>
+          <div>{this.props.track.artists[0].name}</div>
         </div>
         {this.renderAction()}
       </div>

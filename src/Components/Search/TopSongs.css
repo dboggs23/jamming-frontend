@@ -1,0 +1,11 @@
+.Track-information{
+    cursor: pointer;
+    width: 8.11rem;
+    text-align: center;
+    transition: background-color .25s;
+    border: 0px;
+    font-weight: 400;
+    color: #010c3f;
+    font-size: 1rem;
+    margin-bottom: .5rem;
+}

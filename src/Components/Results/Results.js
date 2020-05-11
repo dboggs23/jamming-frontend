@@ -2,35 +2,32 @@ import React from "react";
 import Songs from "./Songs";
 import "../../App.css";
 import Playlist from "./Playlist";
+import "./Results.css";
 
 class Results extends React.Component {
-
-    /*
-    onAdd={this.props.onAdd}
-              onRemove={this.props.onRemove}
-              isRemoval={this.props.isRemoval}
-    */
-
-
-    /*
-        <Playlist/> is going to be rendered here, but for a little bit I'm going to be leaving it out
-    */
   render() {
     return (
-      <div className="TrackList">
-        {this.props.tracks.map(track => {
-          return (
-            <Songs
-              track={this.props.tracks}
-              
-            />
-          );
-        })}
-        <div>
-          <Playlist playlist={this.props.playlist}/>
+      <div className="results-container">
+        <div className="TrackList">
+          {this.props.tracks.map((track) => {
+            return (
+              <Songs
+                key={track.id}
+                track={track}
+                onAdd={this.props.onAdd}
+                onRemove={this.props.onRemove}
+              />
+            );
+          })}
+        </div>
+        <div className="TrackList">
+          <Playlist
+            playlist={this.props.playlist}
+            onRemove={this.props.onRemove}
+            onAdd={this.props.onAdd}
+          />
         </div>
       </div>
-      
     );
   }
 }
