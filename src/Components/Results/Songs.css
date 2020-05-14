@@ -10,7 +10,7 @@
     
     transition: color .25s;
     border: 0px;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: #2F3C59;
     color: #fff;
     
   }
@@ -24,14 +24,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 50px;
-    font-size: .95rem;
+    height: 55px;
+    font-size: .85rem;
     font-weight: 400;
   }
   
   .Track-information .h5 {
-    font-size: 1.3rem;
-    font-weight: 500;
+    font-size: .9rem;
+    font-weight: 600;
   }
   
   .Track-information div {

@@ -25,6 +25,10 @@ class Search extends Component {
     this.setState({ term: event.target.value });
   }
 
+  spinner(){
+
+  }
+
   render() {
     let artist;
     let tracks;

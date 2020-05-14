@@ -16,6 +16,7 @@ class Results extends React.Component {
                 track={track}
                 onAdd={this.props.onAdd}
                 onRemove={this.props.onRemove}
+                isRemoval={false}
               />
             );
           })}
@@ -25,6 +26,9 @@ class Results extends React.Component {
             playlist={this.props.playlist}
             onRemove={this.props.onRemove}
             onAdd={this.props.onAdd}
+            isRemoval={true}
+            onNameChange={this.props.onNameChange}
+            onSave={this.props.onSave}
           />
         </div>
       </div>

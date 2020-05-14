@@ -34,10 +34,15 @@ class Songs extends React.Component {
   }
 
   render() {
+    let songSubString = this.props.track.name.slice(0,50)
+    if(songSubString.length<this.props.track.name.length){
+      songSubString+='...'
+    }
+    //{this.props.track.name}
     return (
       <div className="Track">
         <div className="Track-information">
-          <div className="h5">{this.props.track.name}</div>
+    <div className="h5">{songSubString}</div>
           <div>{this.props.track.artists[0].name}</div>
         </div>
         {this.renderAction()}

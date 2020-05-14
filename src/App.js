@@ -10,6 +10,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      playlistName: "My Playlist",
       loggedIn: false,
       gotArtists: false,
       gotTopSongs: false,
@@ -37,6 +38,8 @@ class App extends Component {
     this.login = this.login.bind(this);
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.createPlaylist = this.createPlaylist.bind(this);
   }
 
   login() {
@@ -48,6 +51,10 @@ class App extends Component {
       .then((res) => {
         window.location = res.url;
       });
+  }
+
+  updatePlaylistName(name) {
+    this.setState({ playlistName: name });
   }
 
   getSomeSongs() {
@@ -133,6 +140,37 @@ class App extends Component {
     this.setState({ playlistTracks: tracks });
   }
 
+  createPlaylist() {
+    const trackURIs = this.state.playlistTracks.map((track) => track.uri);
+    let playlistObject = {
+      tracks: trackURIs,
+      name: this.state.playlistName,
+    };
+
+    fetch("app/playlist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(playlistObject),})
+        .then((res) => {
+          
+        if (res.status === 200) {
+          this.setState({
+            playlistName: "New Playlist",
+            playlistTracks: [],
+            gotArtists: false,
+            gotTopSongs: false,
+            gotTraits: false,
+            tracks: [],
+            artist: false,
+            foundTracks: [],
+            playlistTracks: [],
+          });
+        }
+      });
+  }
+
   render() {
     let loggedIn;
     let search;
@@ -174,11 +212,14 @@ class App extends Component {
           tracks={this.state.foundTracks}
           onAdd={this.addTrack}
           onRemove={this.removeTrack}
+          onNameChange={this.updatePlaylistName}
+          onSave={this.createPlaylist}
         />
       );
     }
 
     //<button onClick={localStorage.clear()}></button>
+    //if restarting server, the button with the function clearing the localstorage needs to be put in, then taken out to use the app
     return (
       <div className="App">
         <div>{loggedIn}</div>
@@ -188,6 +229,8 @@ class App extends Component {
           {traits}
         </div>
         <button onClick={console.log(this.state)}></button>
+        <button onClick={this.createPlaylist}></button>
+        
       </div>
     );
   }

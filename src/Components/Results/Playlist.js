@@ -24,7 +24,7 @@ class Playlist extends React.Component {
           </button>
         </div>
         {this.props.playlist.map((track) => {
-          return <Songs key={track.id} track={track} />;
+          return <Songs key={track.id} track={track} isRemoval={true} onRemove={this.props.onRemove}/>;
         })}
       </div>
     );
