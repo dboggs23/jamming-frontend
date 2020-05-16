@@ -4,7 +4,7 @@ import Login from "./Components/Login";
 import Search from "./Components/Search/Search";
 import Results from "./Components/Results/Results";
 import Traits from "./Components/Search/Traits";
-import ProgressBarState from './Components/ProgressBar/ProgressBarState'
+import ProgressBarState from "./Components/ProgressBar/ProgressBarState";
 
 class App extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class App extends Component {
         tempo: "", //overall tempo in BPM / 60-160 integer
       },
       progress: 0,
-      loading: false
+      loading: false,
     };
 
     this.search = this.search.bind(this);
@@ -43,7 +43,7 @@ class App extends Component {
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.createPlaylist = this.createPlaylist.bind(this);
-    this.checkProgress = this.checkProgress.bind(this)
+    this.checkProgress = this.checkProgress.bind(this);
   }
 
   login() {
@@ -53,17 +53,11 @@ class App extends Component {
         return res.json();
       })
       .then((res) => {
-        
         window.location = res.url;
-        
-        
-        
-        
       })
-      .catch(err=>console.log(err))
+      .catch((err) => console.log(err));
 
-      localStorage.setItem({'redirected':'true'})
-      
+    localStorage.setItem({ redirected: "true" });
   }
 
   updatePlaylistName(name) {
@@ -71,37 +65,44 @@ class App extends Component {
   }
 
   search(term) {
-    this.setState({loading: true})
+    this.setState({ loading: true });
     fetch(`http://localhost:5000/app/search?search=${term}`) //https://were-jammming.herokuapp.com/app/search?search=${term}
       .then((res) => res.json())
       .then((searchResults) => {
-        this.setState({ 
-          loading: false,
-          artist: searchResults,
-          gotArtists: true },()=>this.checkProgress());
+        this.setState(
+          {
+            loading: false,
+            artist: searchResults,
+            gotArtists: true,
+          },
+          () => this.checkProgress()
+        );
       });
   }
-  
-  checkProgress(){
-    if(localStorage.getItem("loggedIn")) this.setState({progress: 20})
-    if(this.state.gotArtists) this.setState({progress: 40})
-    if(this.state.tracks.length>0) this.setState({progress: 60})
-    if(this.state.gotTraits) this.setState({progress: 80})
-    if(this.state.playlistTracks.length > 0) this.setState({progress: 100})
+
+  checkProgress() {
+    if (localStorage.getItem("loggedIn")) this.setState({ progress: 20 });
+    if (this.state.gotArtists) this.setState({ progress: 40 });
+    if (this.state.tracks.length > 0) this.setState({ progress: 60 });
+    if (this.state.gotTraits) this.setState({ progress: 80 });
+    if (this.state.playlistTracks.length > 0) this.setState({ progress: 100 });
   }
 
   findTopSongs(clickedArtist) {
     let artists = this.state.artist;
     artists = artists.filter((findArtist) => findArtist.name === clickedArtist); //filter out incorrect artists
     this.setState({ artist: artists });
-    this.setState({loading: true})
+    this.setState({ loading: true });
     fetch(`http://localhost:5000/app/getTopSongs?artist=${artists[0].id}`) //https://were-jammming.herokuapp.com/app/getTopSongs?artist=${artists[0].id}
       .then((res) => res.json())
       .then((searchResults) => {
-        this.setState({
-          loading: false,
-          tracks: searchResults
-        },()=>this.checkProgress());
+        this.setState(
+          {
+            loading: false,
+            tracks: searchResults,
+          },
+          () => this.checkProgress()
+        );
       });
   }
 
@@ -109,8 +110,9 @@ class App extends Component {
     let songs = this.state.tracks;
     songs = songs.filter((findSong) => findSong.name === song); //filter out incorrect songs
 
-    this.setState({ tracks: songs,
-                    gotTopSongs: true },()=>this.checkProgress());
+    this.setState({ tracks: songs, gotTopSongs: true }, () =>
+      this.checkProgress()
+    );
   }
 
   setTraits(traits) {
@@ -127,17 +129,16 @@ class App extends Component {
       },
     });
 
-    this.setState({ gotTraits: true,
-                    loading: true },()=>this.checkProgress());
+    this.setState({ gotTraits: true, loading: true }, () =>
+      this.checkProgress()
+    );
 
     fetch(
       `http://localhost:5000/app/fullSearch?artist=${this.state.artist[0].id}&track=${this.state.tracks[0].id}&acousticness=${traits.acousticness}&instrumentalness=${traits.instrumentalness}&danceability=${traits.danceability}&energy=${traits.energy}&loudness=${traits.loudness}&valence=${traits.valence}&mode=${traits.mode}&tempo=${traits.tempo}`
     )
       .then((res) => res.json())
       .then((res) => {
-        this.setState({ foundTracks: res,
-                        loading: false,
-                        gotTraits: true });
+        this.setState({ foundTracks: res, loading: false, gotTraits: true });
       });
   }
 
@@ -148,7 +149,9 @@ class App extends Component {
       return;
     } else {
       this.state.playlistTracks.push(track);
-      this.setState({ playlistTracks: this.state.playlistTracks },()=>this.checkProgress());
+      this.setState({ playlistTracks: this.state.playlistTracks }, () =>
+        this.checkProgress()
+      );
     }
   }
 
@@ -166,29 +169,29 @@ class App extends Component {
       name: this.state.playlistName,
     };
 
-    fetch("http://localhost:5000/app/playlist", { //https://were-jammming.herokuapp.com/app/playlist
+    fetch("http://localhost:5000/app/playlist", {
+      //https://were-jammming.herokuapp.com/app/playlist
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(playlistObject),})
-        .then((res) => {
-          
-        if (res.status === 200) {
-          this.setState({
-            playlistName: "New Playlist",
-            playlistTracks: [],
-            gotArtists: false,
-            gotTopSongs: false,
-            gotTraits: false,
-            tracks: [],
-            artist: false,
-            foundTracks: [],
-            playlistTracks: [],
-            progress:0
-          });
-        }
-      });
+      body: JSON.stringify(playlistObject),
+    }).then((res) => {
+      if (res.status === 200) {
+        this.setState({
+          playlistName: "New Playlist",
+          playlistTracks: [],
+          gotArtists: false,
+          gotTopSongs: false,
+          gotTraits: false,
+          tracks: [],
+          artist: false,
+          foundTracks: [],
+          playlistTracks: [],
+          progress: 0,
+        });
+      }
+    });
   }
 
   render() {
@@ -213,7 +216,6 @@ class App extends Component {
           isLoading={this.state.loading}
         />
       );
-      
     }
 
     if (
@@ -224,7 +226,6 @@ class App extends Component {
       results = "";
       search = "";
       traits = <Traits setTraits={this.setTraits} />;
-      
     }
 
     if (this.state.gotTraits) {
@@ -239,13 +240,8 @@ class App extends Component {
           onSave={this.createPlaylist}
         />
       );
-      
     }
-    /*<button onClick={console.log(this.state)}></button>
-      <button onClick={this.createPlaylist}></button>
-      */
-    //<button onClick={localStorage.clear()}></button>
-    //if restarting server, the button with the function clearing the localstorage needs to be put in, then taken out to use the app
+
     return (
       <div className="App">
         <div>{loggedIn}</div>
@@ -254,8 +250,7 @@ class App extends Component {
           {results}
           {traits}
         </div>
-        <ProgressBarState progress={this.state.progress}/>
-        
+        <ProgressBarState progress={this.state.progress} />
       </div>
     );
   }
