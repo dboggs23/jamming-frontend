@@ -18,7 +18,7 @@ class Playlist extends React.Component {
     return (
       <div className="Playlist">
         <div className="inputs">
-          <input defaultValue={"New Playlist"} onChange={this.nameChange} />
+          <input defaultValue={"New Playlist"} onChange={this.nameChange} className='input'/>
           <button className="Playlist-save" onClick={this.props.onSave}>
             SAVE TO SPOTIFY
           </button>

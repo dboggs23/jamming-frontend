@@ -4,6 +4,7 @@ import Artists from "./Artists";
 import Traits from "./Traits";
 import TopSongs from "./TopSongs";
 import "./Search.css";
+import MoonLoader from "react-spinners/PacmanLoader";
 
 class Search extends Component {
   constructor(props) {
@@ -25,16 +26,18 @@ class Search extends Component {
     this.setState({ term: event.target.value });
   }
 
-  spinner(){
-
-  }
-
   render() {
+    let prelim
     let artist;
     let tracks;
     let traits;
 
+    if (this.state.term==='') {
+      prelim = <div className='pointer'>👈 search for an artist to use to find similar stuff</div>
+    }
+
     if (this.props.artist.length > 0) {
+      prelim = 'Is this who you were looking for?'
       artist = this.props.artist.map((artist) => {
         return (
           <Artists
@@ -46,7 +49,9 @@ class Search extends Component {
       });
     }
 
-    if (this.props.tracks) {
+    if (this.props.tracks.length) {
+      prelim = 'And a song'
+      artist = ''
       tracks = this.props.tracks.map((song) => {
         return <TopSongs song={song} filterSongs={this.props.filterSongs} />;
       });
@@ -62,7 +67,7 @@ class Search extends Component {
         <div className="SearchContainer">
           <div className="SearchBar">
             <input
-              placeholder="Enter A Song, Album, or Artist"
+              placeholder="Enter an Artist"
               onChange={this.handleTermChange}
             />
 
@@ -74,6 +79,7 @@ class Search extends Component {
 
         <div>
           <div className="artists">
+            <div className='header'>{this.props.isLoading ? <MoonLoader css='margin-left: -30px; opacity: .95;' size={20} color={"#123abc"}/> : prelim}</div>
             {artist}
             {tracks}
           </div>

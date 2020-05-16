@@ -2,6 +2,15 @@
     display: flex;
     align-items: center;
     border-bottom: 1px solid rgba(256, 256, 256, 0.8);
+    flex-direction: row;
+    margin-bottom: .3rem;
+    margin-top: .3rem;
+  }
+
+  .button-holder{
+    width: 50%;
+    display: flex;
+    align-items: flex-start;
   }
   
   .Track-action {
@@ -12,6 +21,7 @@
     border: 0px;
     background-color: #2F3C59;
     color: #fff;
+    margin-top: 0;
     
   }
   
@@ -24,7 +34,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 55px;
     font-size: .85rem;
     font-weight: 400;
   }

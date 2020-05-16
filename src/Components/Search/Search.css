@@ -66,6 +66,16 @@ navy/indigo: 2F3C59
     background-color: #E53E40;
   }
 
+  .header{
+    color: #010c3f;
+    text-align: center;
+    font-size: 1rem;
+    align-self: center;
+    padding: .77rem;
+    margin-bottom: 2rem;
+    opacity: .8
+  }
+
   .artists{
     background-color: #fff;
     width: 15rem;

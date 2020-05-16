@@ -6,6 +6,12 @@
       align-items: center;
   }
 
+  .inputs{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+  }
+
   .Playlist-save{
     cursor: pointer;
     width: 8.11rem;
@@ -13,9 +19,14 @@
     border-radius: 54px;
     background-color: #3F7C81;
     text-align: center;
-    font-size: .833rem;
+    font-size: .75rem;
     transition: background-color .25s;
     border: 0px;
     color: #fff;
     font-weight: 500;
+    align-self: center;
+  }
+
+  .input{
+    opacity: .85;
   }
